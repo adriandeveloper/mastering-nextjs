@@ -1,46 +1,41 @@
 import React from 'react';
 
-class List extends React.Component {
-  constructor(props) {
-    super(props);
+const List = ({ items, ...props }) => {
+  const [filteredItems, setFilteredItems] = React.useState(items);
 
-    this.state = {
-      filteredItems: this.props.items
-    };
-
-    this.filterItems = this.filterItems.bind(this);
-  }
-
-  filterItems(e) {
+  const filterItems = (e) => {
     // what user typed in
     const searchValue = e.target.value;
     // full list of items. using spread operator to copy the arr without modifing properties directly
-    const currentItems = [...this.props.items];
+    const currentItems = [...items];
     const matchingItems = currentItems.filter((item) =>
       item.startsWith(searchValue)
     );
 
-    this.setState({
-      filteredItems: matchingItems
-    });
-  }
-  render() {
-    return (
-      // fragment? WTF is that?
-      <>
-        <input onChange={this.filterItems} />
-        <ul>
-          {this.state.filteredItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-}
+    setFilteredItems(matchingItems);
+    // same thing as doing setFilteredItems
+    //   this.setState({
+    //     filteredItems: matchingItems
+    //   });
+  };
+  return (
+    // fragment? WTF is that?
+    <>
+      <input onChange={filterItems} />
+      <ul {...props}>
+        {filteredItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
 
 const ListContainer = () => (
-  <List items={['Learn React', 'Learn Next.js', '???', 'Profit']} />
+  <List
+    aria-label="My Fancy List"
+    items={['Learn React', 'Learn Next.js', '???', 'Profit']}
+  />
 );
 
 export default ListContainer;
