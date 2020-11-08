@@ -14,12 +14,12 @@ const Header = () => (
         </Link>
       </li>
       <li>
-        <Link href="/contact">
-          <a>Contact</a>
+        <Link href="/login">
+          <a>Login</a>
         </Link>
       </li>
       {/* use "as" to tell nextJS which specific post is associated with the dynamic link */}
-      <li>
+      {/* <li>
         <Link as="/post/1" href="/post[id]">
           <a>First Post</a>
         </Link>
@@ -28,7 +28,7 @@ const Header = () => (
         <Link as="/post/2" href="/post[id]">
           <a>Second Post</a>
         </Link>
-      </li>
+      </li> */}
     </ul>
   </header>
 );
